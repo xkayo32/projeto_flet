@@ -64,3 +64,10 @@ class Carrinho(Base):
 
 # Criar banco de dados
 # Base.metadata.create_all(engine)
+
+if __name__ == '__main__':
+    # Criar banco de dados
+    session = Session(bind=engine)
+    # Get all clientes
+    clientes = session.query(Cliente).all()
+    print(clientes)

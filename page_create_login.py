@@ -60,6 +60,6 @@ class CreateUser(UserControl):
                 )
                 session.add(cliente)
                 session.commit()
-                print('User created')
+                self.page.go('/')
         else:
             print('Invalid fields')
