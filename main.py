@@ -1,5 +1,6 @@
 import flet as ft
 from page_login import Login
+from page_create_login import CreateUser
 
 
 class Main:
@@ -16,6 +17,9 @@ class Main:
             if page.route == '/home':
                 page.views.append(self.__create_view(
                     '/home', [ft.Text('Home'), ft.ElevatedButton('Logout', on_click=lambda _:page.go('/'))]))
+            elif page.route == '/create_login':
+                page.views.append(self.__create_view(
+                    '/create_login', [CreateUser(page)]))
             page.update()
 
         def view_pop(view):

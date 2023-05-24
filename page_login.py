@@ -1,10 +1,12 @@
-from flet import TextField, Text, UserControl, TextButton, TextStyle, TextDecoration, Container, Column, icons, Alignment
+from flet import TextField, UserControl, TextButton, TextStyle, TextDecoration, Container, Column, icons, Alignment, Row
 import re
+from models import Cliente, Session, session, engine
+from cript_keys import decrypt_key
 
 
 class Login(UserControl):
 
-    def build(self):
+    def build(self) -> Column:
         """
         This function builds a login form with email and password fields and a login button.
         :return: The `build` method is returning a `Column` widget that contains a `TextField` for email
@@ -18,11 +20,14 @@ class Login(UserControl):
                                   on_submit=self.__check_login, icon=icons.LOCK_ROUNDED)
         self.login = TextButton(
             text='Login', on_click=self.__check_login, icon=icons.LOGIN)
+        self.create_login = TextButton(
+            text='Create Login', on_click=lambda _: self.page.go('/create_login'), icon=icons.PERSON_ADD)
         return Column(
             controls=[
                 Container(self.email),
                 Container(self.password),
-                Container(self.login, alignment=Alignment(1, 0))
+                Container(Row([self.create_login, self.login]),
+                          alignment=Alignment(1, 0))
             ],
             spacing=10,
             width=500
@@ -57,8 +62,17 @@ class Login(UserControl):
         non-empty email
         """
         if self.email.value:
-            print('Login success')
-            self.page.go('/home')
+            with Session(engine) as session:
+                cliente = session.query(Cliente).filter_by(
+                    email=self.email.value).first()
+                if cliente:
+                    password = decrypt_key(cliente.password)
+                    if password == self.password.value:
+                        print('Login success')
+                    else:
+                        self.email.error_text = 'Invalid password'
+                else:
+                    self.email.error_text = 'Invalid email'
         else:
             print('Login failed')
 
