@@ -38,6 +38,7 @@ class Produto(Base):
     __tablename__ = 'produto'
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(50))
+    imagem: Mapped[str] = mapped_column(String())
     description: Mapped[str] = mapped_column(String(50))
     price: Mapped[str] = mapped_column(String(50))
     category_id: Mapped[int] = mapped_column(
@@ -65,9 +66,9 @@ class Carrinho(Base):
 # Criar banco de dados
 # Base.metadata.create_all(engine)
 
-if __name__ == '__main__':
-    # Criar banco de dados
-    session = Session(bind=engine)
-    # Get all clientes
-    clientes = session.query(Cliente).all()
-    print(clientes)
+# if __name__ == '__main__':
+#     # Criar banco de dados
+#     session = Session(bind=engine)
+#     # Get all clientes
+#     clientes = session.query(Cliente).all()
+#     print(clientes)

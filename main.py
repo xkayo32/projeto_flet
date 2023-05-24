@@ -1,25 +1,27 @@
 import flet as ft
-from page_login import Login
-from page_create_login import CreateUser
+from templates.page_login import Login
+from templates.page_create_login import CreateUser
+from templates.page_home import Home
 
 
 class Main:
     def __init__(self) -> None:
-        ft.app(self.main, view=ft.WEB_BROWSER)
+        ft.app(self.main, view=ft.WEB_BROWSER, port=5000)
 
     def main(self, page: ft.Page):
         page.title = 'Login'
         page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+        page.theme_mode = ft.ThemeMode.LIGHT
 
         def route_change(route):
             page.views.clear()
-            page.views.append(self.__create_view('/', [Login(page)]))
-            if page.route == '/home':
+            page.views.append(self.__create_view('/login', [Login()]))
+            if page.route == '/':
                 page.views.append(self.__create_view(
-                    '/home', [ft.Text('Home'), ft.ElevatedButton('Logout', on_click=lambda _:page.go('/'))]))
+                    '/', [Home()]))
             elif page.route == '/create_login':
                 page.views.append(self.__create_view(
-                    '/create_login', [CreateUser(page)]))
+                    '/create_login', [CreateUser()]))
             page.update()
 
         def view_pop(view):

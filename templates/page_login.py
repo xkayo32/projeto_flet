@@ -1,7 +1,10 @@
-from flet import TextField, UserControl, TextButton, TextStyle, TextDecoration, Container, Column, icons, Alignment, Row
+from flet import TextField, UserControl, TextButton, TextStyle, TextDecoration, Container, Column, icons, Alignment, Row, Image
 import re
-from models import Cliente, Session, session, engine
+from models import Cliente, engine
+from sqlalchemy.orm import Session
 from cript_keys import decrypt_key
+import os
+import base64
 
 
 class Login(UserControl):
@@ -14,6 +17,10 @@ class Login(UserControl):
         input), and a `TextButton` for submitting the login information. The `Column` widget is set to have
         a spacing of 10 and a width of 500.
         """
+        self.static_path = os.path.abspath(os.path.join(
+            os.path.dirname(__file__), '..', 'static'))
+        self.logo = Image(src_base64=self.imagem_para_base64(
+            os.path.join(self.static_path, 'img/logo_pymazon.png')), width=200)
         self.email = TextField(
             hint_text='Email', on_change=self.__on_change, icon=icons.EMAIL_ROUNDED)
         self.password = TextField(hint_text='Password', password=True,
@@ -22,8 +29,10 @@ class Login(UserControl):
             text='Login', on_click=self.__check_login, icon=icons.LOGIN)
         self.create_login = TextButton(
             text='Create Login', on_click=lambda _: self.page.go('/create_login'), icon=icons.PERSON_ADD)
-        return Column(
+        return Container(Column(
             controls=[
+                Container(self.logo, alignment=Alignment(0, 0),
+                          on_click=lambda _: self.page.go('/')),
                 Container(self.email),
                 Container(self.password),
                 Container(Row([self.create_login, self.login]),
@@ -31,7 +40,7 @@ class Login(UserControl):
             ],
             spacing=10,
             width=500
-        )
+        ), expand=True, alignment=Alignment(0, 0))
 
     def __on_change(self, event):
         """
@@ -89,3 +98,10 @@ class Login(UserControl):
         rules and returns a boolean value indicating whether the email is valid or not
         """
         return re.match(r"[^@]+@[^@]+\.[^@]+", email)
+
+    @staticmethod
+    def imagem_para_base64(caminho_imagem):
+        with open(caminho_imagem, "rb") as imagem_arquivo:
+            imagem_bytes = imagem_arquivo.read()
+            imagem_base64 = base64.b64encode(imagem_bytes).decode("utf-8")
+            return imagem_base64
