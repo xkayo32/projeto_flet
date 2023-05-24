@@ -16,8 +16,8 @@ class CreateUser(UserControl):
         return Column(
             controls=[
                 Container(self.name),
-                Container(self.password),
                 Container(self.email),
+                Container(self.password),
                 Container(TextButton(
                     text='Save', on_click=self.__create_user, icon=icons.PERSON_ADD))
             ],

@@ -75,6 +75,7 @@ class Login(UserControl):
                     self.email.error_text = 'Invalid email'
         else:
             print('Login failed')
+        self.update()
 
     @staticmethod
     def __validate_email(email):
