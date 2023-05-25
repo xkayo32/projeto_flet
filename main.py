@@ -6,7 +6,7 @@ from templates.page_home import Home
 
 class Main:
     def __init__(self) -> None:
-        ft.app(self.main, view=ft.WEB_BROWSER, port=5000)
+        ft.app(self.main, view=ft.WEB_BROWSER)
 
     def main(self, page: ft.Page):
         page.title = 'Login'

@@ -20,7 +20,7 @@ class Login(UserControl):
         self.static_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), '..', 'static'))
         self.logo = Image(src_base64=self.imagem_para_base64(
-            os.path.join(self.static_path, 'img/logo_pymazon.png')), width=200)
+            os.path.join(self.static_path, 'img/logo_pymazon_color.png')), width=200)
         self.email = TextField(
             hint_text='Email', on_change=self.__on_change, icon=icons.EMAIL_ROUNDED)
         self.password = TextField(hint_text='Password', password=True,
