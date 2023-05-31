@@ -30,7 +30,7 @@ class Login(UserControl):
         self.create_login = TextButton(
             text='Create Login', on_click=lambda _: self.page.go('/create_login'), icon=icons.PERSON_ADD)
         return Container(Column(
-            controls=[
+            [
                 Container(self.logo, alignment=Alignment(0, 0),
                           on_click=lambda _: self.page.go('/')),
                 Container(self.email),
@@ -40,7 +40,10 @@ class Login(UserControl):
             ],
             spacing=10,
             width=500
-        ), expand=True, alignment=Alignment(0, 0))
+        ),
+            expand=True,
+            alignment=Alignment(0, 0)
+        )
 
     def __on_change(self, event):
         """

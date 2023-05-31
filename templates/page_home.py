@@ -1,4 +1,4 @@
-from flet import TextField, UserControl, TextButton, TextStyle, TextDecoration, Container, Column, icons, Alignment, Row, WEB_BROWSER, app, colors, ScrollMode, GridView, Image, ImageFit, ImageRepeat, border_radius, ThemeMode
+from flet import TextField, UserControl, TextButton, TextStyle, TextDecoration, Container, Column, icons, Alignment, Row, WEB_BROWSER, app, colors, ScrollMode, GridView, Image, ImageFit, ImageRepeat, border_radius, ThemeMode, MainAxisAlignment, CrossAxisAlignment
 from .partials.menu import Menu
 
 
