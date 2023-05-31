@@ -15,7 +15,8 @@ class Main:
 
         def route_change(route):
             page.views.clear()
-            page.views.append(self.__create_view('/login', [Login()]))
+            page.views.append(self.__create_view(
+                '/login', [Login()], vertical=ft.MainAxisAlignment.CENTER, horizontal=ft.CrossAxisAlignment.CENTER))
             if page.route == '/':
                 page.views.append(self.__create_view(
                     '/', [Home()]))
@@ -33,7 +34,7 @@ class Main:
         page.on_view_pop = view_pop
         page.go(page.route)
 
-    def __create_view(self, route: str, controls: list):
+    def __create_view(self, route: str, controls: list, vertical: str | None = ft.MainAxisAlignment.NONE, horizontal: str | None = ft.CrossAxisAlignment.NONE):
         """
         This function creates a view object with a specified route and list of controls.
 
@@ -48,7 +49,7 @@ class Main:
         :return: an instance of the `View` class from the `ft` module, which is created using the `route`
         and `controls` arguments passed to the function.
         """
-        return ft.View(route, controls)
+        return ft.View(route, controls, vertical_alignment=vertical, horizontal_alignment=horizontal)
 
 
 if __name__ == '__main__':
