@@ -22,7 +22,7 @@ class Main:
                     '/', [Home()]))
             elif page.route == '/create_login':
                 page.views.append(self.__create_view(
-                    '/create_login', [CreateUser()]))
+                    '/create_login', [CreateUser()], vertical=ft.MainAxisAlignment.CENTER, horizontal=ft.CrossAxisAlignment.CENTER))
             page.update()
 
         def view_pop(view):
